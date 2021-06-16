@@ -1,8 +1,3 @@
-/**
- * <your name here>
- * CSE 360: Assignment 2
- * Template file for starting the assignment
- */
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
@@ -32,7 +27,10 @@ public class Main {
      * TODO: Create a NumberIterator class to go through arr to create an Object[][]
      * that you can insert into the JTable constructor below
      */
-    JTable iteratorTable = new JTable(3, 2);
+    NumberIterator numIter = new NumberIterator( arr );
+    Object[][] iterOutput = numIter.createTableData();
+
+    JTable iteratorTable = new JTable( iterOutput, columnNames );
 
     JScrollPane iteratorPanel = new JScrollPane(iteratorTable);
     iteratorTable.setFillsViewportHeight(true);
@@ -40,6 +38,11 @@ public class Main {
     tabs.addTab("Iterator", iteratorPanel);
 
     /***** Panel for facade design pattern *****/
+    NumberFacade numFac = new NumberFacade( arr );
+    numFac.addNumbers();
+    numFac.subtractNumbers();
+    numFac.multipleNumbers();
+
     JPanel facadePanel = new JPanel();
     String sampleText = "Add all positive numbers:" + arr.positiveNumbers[1];
     JLabel text1 = new JLabel(sampleText);
@@ -50,6 +53,16 @@ public class Main {
     tabs.addTab("Facade", facadePanel);
 
     /***** Panel for observer design pattern *****/
+    Observer numObs = new Observer( arr );
+    numFac.setObserver( numObs ); // Set the observer
+    numFac.addNumbers(); // will notify the observer after finishing the calculations
+    numFac.subtractNumbers(); // will notify the observer after finishing the calculations
+    numFac.multiplyNumbers(); // will notify the observer after finishing the calculations
+
+    /** Iterate through the modified arrays and display the results **/
+    numIter = new NumberIterator( numObs.allNumbers );
+    Object[][] observerOutput = numIter.createTableData();
+
     JTable observerTable = new JTable(3, 2);
 
     JScrollPane observerPanel = new JScrollPane(observerTable);
