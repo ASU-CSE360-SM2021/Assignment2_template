@@ -76,12 +76,22 @@ public class Main {
     JTable decoratorTable3 = new JTable(3, 2);
 
     JPanel allTables = new JPanel(new GridLayout(6, 1));
+    
     allTables.add(new JLabel("AddOp's table"));
-    allTables.add(decoratorTable1);
+    JScrollPane addTable = new JScrollPane(decoratorTable1);
+    addTable.setPreferredSize( new Dimension( 300, 100 )) ;
+    allTables.add(addTable);
+    
     allTables.add(new JLabel("SubtractOp's table"));
-    allTables.add(decoratorTable2);
+    JScrollPane subTable = new JScrollPane(decoratorTable2);
+    subTable.setPreferredSize( new Dimension( 300, 100 )) ;
+    allTables.add(subTable);
+    
     allTables.add(new JLabel("MuliplierOp's table"));
-    allTables.add(decoratorTable3);
+    JScrollPane mulTable = new JScrollPane(decoratorTable3);
+    mulTable.setPreferredSize( new Dimension( 300, 100 )) ;
+    allTables.add(mulTable);
+    
     JScrollPane decoratorPanel = new JScrollPane(allTables);
 
     tabs.addTab("Decorator", decoratorPanel);
